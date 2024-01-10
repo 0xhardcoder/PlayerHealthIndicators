@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.scoreboard.ScoreboardDisplaySlot;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
@@ -44,7 +45,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         matrixStack.translate(0, abstractClientPlayerEntity.getHeight() + 0.5f, 0);
         if (this.hasLabel(abstractClientPlayerEntity) && d <= 4096.0) {
             matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
-            if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(2) != null) {
+            if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(new ScoreboardDisplaySlot(2, null)) != null) {
                 matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
             }
         }
