@@ -45,7 +45,7 @@ public void renderHealth(AbstractClientPlayerEntity abstractClientPlayerEntity, 
     matrixStack.translate(0, abstractClientPlayerEntity.getHeight() + 0.5f, 0);
     if (this.hasLabel(abstractClientPlayerEntity) && d <= 4096.0) {
         matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
-        if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(ScoreboardDisplaySlot.PLAYER_LIST) != null) {
+        if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(ScoreboardDisplaySlot.LIST) != null) {
             matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
         }
     }
