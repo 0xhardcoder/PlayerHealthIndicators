@@ -33,23 +33,22 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
             at = @At("RETURN")
     )
-    public void renderHealth(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo ci) {
-        if (!Config.getRenderingEnabled()) return;
+public void renderHealth(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo ci) {
+    if (!Config.getRenderingEnabled()) return;
 
-        if (!shouldRenderHeartsForEntity(abstractClientPlayerEntity)) return;
+    if (!shouldRenderHeartsForEntity(abstractClientPlayerEntity)) return;
 
-        matrixStack.push();
+    matrixStack.push();
 
-        double d = this.dispatcher.getSquaredDistanceToCamera(abstractClientPlayerEntity);
+    double d = this.dispatcher.getSquaredDistanceToCamera(abstractClientPlayerEntity);
 
-        matrixStack.translate(0, abstractClientPlayerEntity.getHeight() + 0.5f, 0);
-        if (this.hasLabel(abstractClientPlayerEntity) && d <= 4096.0) {
+    matrixStack.translate(0, abstractClientPlayerEntity.getHeight() + 0.5f, 0);
+    if (this.hasLabel(abstractClientPlayerEntity) && d <= 4096.0) {
+        matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
+        if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(ScoreboardDisplaySlot.PLAYER_LIST) != null) {
             matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
-            if (d < 100.0 && abstractClientPlayerEntity.getScoreboard().getObjectiveForSlot(new ScoreboardDisplaySlot(2, null)) != null) {
-                matrixStack.translate(0.0D, 9.0F * 1.15F * 0.025F, 0.0D);
-            }
         }
-
+    }
         matrixStack.multiply(this.dispatcher.getRotation());
 //            matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(mc.gameRenderer.getCamera().getPitch()));
 
